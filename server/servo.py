@@ -114,7 +114,7 @@ def up(speed):
 		pwm1_pos += speed
 		pwm1_pos = ctrl_range(pwm1_pos, pwm1_max, pwm1_min)
 		pwm.set_pwm(13, 0, pwm1_pos)
-	#print(pwm1_pos)
+	print(pwm1_pos)
 
 
 def down(speed):
@@ -182,7 +182,7 @@ def loose(speed):
 def servo_init():
 	pwm.set_pwm(0, 0, pwm0_pos)
 	pwm.set_pwm(1, 0, pwm1_pos)
-	pwm.set_pwm(2, 0, pwm2_max)
+	pwm.set_pwm(2, 0, pwm2_pos)
 	pwm.set_pwm(3, 0, pwm3_pos)
 
 
@@ -206,10 +206,51 @@ def get_direction():
 
 
 if __name__ == '__main__':
-	while True:
-		for i in range(0,100):
-			pwm.set_pwm(0, 0, (300+i))
-			time.sleep(0.05)
-		for i in range(0,100):
-			pwm.set_pwm(0, 0, (400-i))
-			time.sleep(0.05)
+	clean_all()
+	servo_init()
+	time.sleep(0.5)
+
+	print("ready")
+
+#	print("pwm0")
+#	for i in range(0,(pwm0_max-pwm0_min)):
+#		pwm.set_pwm(0,pwm0_min,pwm0_min+i)
+#		pwm.set_pwm(3,pwm0_min,pwm0_min+i)
+#		pwm.set_pwm(6, pwm0_min,pwm0_min+i)
+#		pwm.set_pwm(9, pwm0_min, pwm0_min+i)
+#		time.sleep(0.025)
+	print("pwm1")
+	for i in range(0,(pwm1_max-pwm1_min)):
+		pwm.set_pwm(1,pwm1_min,pwm1_min+i)
+		pwm.set_pwm(4,pwm0_min,pwm0_min+i)
+		pwm.set_pwm(7, pwm0_min,pwm0_min+i)
+		pwm.set_pwm(10, pwm0_min, pwm0_min+i)
+		time.sleep(0.025)
+	print("pwm2")
+	for i in range(0,(pwm2_max-pwm2_min)):
+		pwm.set_pwm(2,pwm2_min,pwm2_min+i)
+		pwm.set_pwm(5,pwm0_min,pwm0_min+i)
+		pwm.set_pwm(8, pwm0_min,pwm0_min+i)
+		pwm.set_pwm(11, pwm0_min, pwm0_min+i)
+		time.sleep(0.025)
+	print("ahead()")
+	clean_all()
+	servo_init()
+
+	up(500)
+	down(500)
+
+#	ahead();
+#	up(100)
+#	down(100)
+#	while True:
+#		for i in range(pwm0_init, pwm0_max):
+#			pwm.set_pwm(0, pwm0_pos, i)
+#		for i in range(pwm0_init, pwm0_max):
+#			pwm.set_pwm(0, pwm0_pos, pwm0_pos-i)
+#		for i in range(0,pwm0_max):
+#			pwm.set_pwm(0, pwm0_init, (pwm0_init+i))
+#			time.sleep(0.05)
+#		for i in range(0,pwm0_init):
+#			pwm.set_pwm(0, pwm0_max, (pwm0_max-i))
+#			time.sleep(0.05)

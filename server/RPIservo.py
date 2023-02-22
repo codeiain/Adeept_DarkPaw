@@ -40,7 +40,7 @@ init_pwm15 = 300
 class ServoCtrl(threading.Thread):
 
 	def __init__(self, *args, **kwargs):
-		self.sc_direction = [1,1,1,1, 1,1,1,1, 1,1,1,1, 1,1,1,1]
+		self.sc_direction = [1,-1,1,1, 1,1,1,1, 1,1,1,1, 1,1,1,1]
 		self.initPos = [init_pwm0,init_pwm1,init_pwm2,init_pwm3,
 						init_pwm4,init_pwm5,init_pwm6,init_pwm7,
 						init_pwm8,init_pwm9,init_pwm10,init_pwm11,
@@ -286,11 +286,17 @@ class ServoCtrl(threading.Thread):
 if __name__ == '__main__':
 	sc = ServoCtrl()
 	sc.start()
+#	sc.singleServo(0,0,1)
+	sc.moveAngle(0,0)
+	time.sleep(1)
 	while 1:
-		sc.moveAngle(0,(random.random()*100-50))
-		time.sleep(1)
-		sc.moveAngle(1,(random.random()*100-50))
-		time.sleep(1)
+		for s in range (0,11):
+			for i in range (0,150):
+				sc.moveAngle(s,i)
+#				time.sleep(1)
+#		time.sleep(1)
+		#sc.moveAngle(1,(random.random()*100-50))
+		#time.sleep(1)
 		'''
 		sc.singleServo(0, 1, 5)
 		time.sleep(6)
