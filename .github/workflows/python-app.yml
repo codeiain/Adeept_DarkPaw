@@ -21,4 +21,4 @@ jobs:
     - uses: actions/checkout@v3
     - name: Create Release Folder
       run: | 
-        mkdir -p release-${{ github.run_id }} 
+        mkdir -p ../release-${{ github.run_id }} 
