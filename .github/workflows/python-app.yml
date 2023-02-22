@@ -23,4 +23,4 @@ jobs:
       run: | 
         mkdir -p ../release-${{ github.run_id }} 
         cp ../Adeept_DarkPaw/ ../release-${{ github.run_id }}/ -rT
-        cp ../release-${{ github.run_id }} /home/pi/trace-e/source
+        cp ../release-${{ github.run_id }} /home/pi/trace-e/source -R
