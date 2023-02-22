@@ -18,15 +18,10 @@ jobs:
     runs-on: self-hosted
 
     steps:
-    - name: 'Cleanup build folder'
-      run: |
-        ls -la ./
-        rm -rf ./* || true
-        rm -rf ./.??* || true
-        ls -la ./
     - uses: actions/checkout@v3
     - name: Create Release Folder
       run: | 
         mkdir -p ../release-${{ github.run_id }} 
         cp ../Adeept_DarkPaw/ ../release-${{ github.run_id }}/ -rT
         sudo cp ../release-${{ github.run_id }} /home/pi/trace-e/source -R
+        rm ../release-${{ github.run_id }} -r -f
