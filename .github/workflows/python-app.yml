@@ -1,0 +1,27 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+
+name: Python application
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+
+    runs-on: self-hosted
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Create Release Folder
+      run: | 
+        mkdir -p ../release-${{ github.run_id }} 
+        cp ../Adeept_DarkPaw/ ../release-${{ github.run_id }}/ -rT
+        sudo cp ../release-${{ github.run_id }} /home/pi/trace-e/source -R
+        rm ../release-${{ github.run_id }} -r -f
