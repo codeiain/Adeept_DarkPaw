@@ -69,7 +69,7 @@ FLB_init_pwm = 390
 FLM_init_pwm = 312
 FLE_init_pwm = 313
 
-FRB_init_pwm = 154
+FRB_init_pwm = 191
 FRM_init_pwm = 281
 FRE_init_pwm = 301
 
@@ -77,7 +77,7 @@ HLB_init_pwm = 362
 HLM_init_pwm = 287
 HLE_init_pwm = 260
 
-HRB_init_pwm = 189
+HRB_init_pwm = 194
 HRM_init_pwm = 195
 HRE_init_pwm = 335
 

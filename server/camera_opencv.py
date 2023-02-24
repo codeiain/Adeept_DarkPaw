@@ -10,6 +10,8 @@ import time
 import threading
 import imutils
 import robotLight
+import SpiderG
+
 
 light = robotLight.RobotLight()
 
@@ -163,7 +165,7 @@ class CVThread(threading.Thread):
         # loop over the contours
         for c in self.cnts:
             # if the contour is too small, ignore it
-            if cv2.contourArea(c) < 5000:
+            if cv2.contourArea(c) < 10000:
                 continue
      
             # compute the bounding box for the contour, draw it on the frame,
@@ -171,6 +173,25 @@ class CVThread(threading.Thread):
             (self.mov_x, self.mov_y, self.mov_w, self.mov_h) = cv2.boundingRect(c)
             self.drawing = 1
             
+            widthC = self.mov_x + self.mov_w - (self.mov_w/2)
+            heightC = self.mov_y +self.mov_h - (self.mov_h/2)
+            print(widthC)
+            print(heightC)
+
+            if widthC > CVThread.videoW/2:
+                print ("right")
+#                SpiderG.walk('turnleft')
+            if widthC < CVThread.videoW /2:
+                print ("left")
+#                SpiderG.walk('turnright')
+            if heightC < CVThread.videoH /2:
+                print ("up")
+#                SpiderG.status_GenOut(0, -150, 0)
+                SpiderG.direct_M_move()
+            if heightC > CVThread.videoH /2:
+                print ("down")
+#                SpiderG.status_GenOut(0, 150, 0)
+ #               SpiderG.direct_M_move()
             self.motionCounter += 1
             #print(motionCounter)
             #print(text)
@@ -417,7 +438,8 @@ class Camera(BaseCamera):
     def frames():
         camera = cv2.VideoCapture(Camera.video_source)
         if not camera.isOpened():
-            raise RuntimeError('Could not start camera.')
+             return None
+#            raise RuntimeError('Could not start camera.')
 
         cvt = CVThread()
         cvt.start()

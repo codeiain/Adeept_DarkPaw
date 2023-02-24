@@ -94,8 +94,30 @@ def functionSelect(command_input, response):
         RL.police()
 
     elif 'policeOff' == command_input:
+        RL.setColor(0,255,64)
+    elif "redAlert" == command_input:
+        RL.setColor(255,0,0)
+        SpiderG.status_GenOut(-200, 0, 0)
+        SpiderG.direct_M_move()
+    elif "redAlertOff" == command_input:
+        RL.setColor(0,255,64)
+        SpiderG.move_init()
+    elif "breath" == command_input:
+        RL.breath(70,70,255)
+    elif "breathOff" == command_input:
         RL.pause()
-
+        RL.setColor(0,255,64)
+    elif "sleep" == command_input:
+        flask_app.modeselect('none')
+        switch.switch(1,0)
+        switch.switch(2,0)
+        switch.switch(3,0)
+        RL.pause()
+        SpiderG.status_GenOut(200, 0, 0)
+        SpiderG.direct_M_move()
+    elif "wake" == command_input:
+        RL.setColor(0,255,64)
+        SpiderG.move_init()
 
 def switchCtrl(command_input, response):
     if 'Switch_1_on' in command_input:
@@ -178,7 +200,7 @@ def robotCtrl(command_input, response):
         SpiderG.direct_M_move()
 
     elif 'stop' == command_input:
-        pass
+        SpiderG.servoStop()
 
     elif 'home' == command_input:
         SpiderG.move_init()
@@ -541,7 +563,6 @@ async def recv_msg(websocket):
         elif(isinstance(data,dict)):
             if data['title'] == "findColorSet":
                 color = data['data']
-
                 flask_app.colorFindSet(color[0],color[1],color[2])
 
         print(data)
