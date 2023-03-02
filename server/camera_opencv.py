@@ -11,7 +11,7 @@ import threading
 import imutils
 import robotLight
 import SpiderG
-
+from ultra import checkdist
 
 light = robotLight.RobotLight()
 
@@ -95,6 +95,10 @@ class CVThread(threading.Thread):
         self.resume()
 
     def elementDraw(self,imgInput):
+
+        distance = checkdist()*100
+        cv2.putText(imgInput, 'Distace: {distance}', (40,60), CVThread.font, 0.5, (255,255,255), 1, cv2.LINE_AA)
+
         if self.CVMode == 'none':
             pass
 
