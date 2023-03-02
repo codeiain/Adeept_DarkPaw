@@ -4,7 +4,12 @@
 # Author	  : William
 # Date		: 2019/02/23
 import time
-import RPi.GPIO as GPIO
+try:
+    # checks if you have access to RPi.GPIO, which is available inside RPi
+    import RPi.GPIO as GPIO
+except:
+    # In case of exception, you are executing your script outside of RPi, so import Mock.GPIO
+    import Mock.GPIO as GPIO
 import sys
 from rpi_ws281x import *
 import threading
@@ -35,8 +40,10 @@ class RobotLight(threading.Thread):
 		# Create NeoPixel object with appropriate configuration.
 		self.strip = Adafruit_NeoPixel(self.LED_COUNT, self.LED_PIN, self.LED_FREQ_HZ, self.LED_DMA, self.LED_INVERT, self.LED_BRIGHTNESS, self.LED_CHANNEL)
 		# Intialize the library (must be called once before other functions).
-		self.strip.begin()
-
+		try:
+			self.strip.begin()
+		except:
+			self.strip.begin()
 		super(RobotLight, self).__init__(*args, **kwargs)
 		self.__flag = threading.Event()
 		self.__flag.clear()

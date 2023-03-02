@@ -95,10 +95,6 @@ class CVThread(threading.Thread):
         self.resume()
 
     def elementDraw(self,imgInput):
-
-        distance = checkdist()*100
-        cv2.putText(imgInput, 'Distace: {distance}', (40,60), CVThread.font, 0.5, (255,255,255), 1, cv2.LINE_AA)
-
         if self.CVMode == 'none':
             pass
 
@@ -441,6 +437,8 @@ class Camera(BaseCamera):
     @staticmethod
     def frames():
         camera = cv2.VideoCapture(Camera.video_source)
+#        distance = checkdist()*100
+#        cv2.putText(imgInput, 'Distace: {distance}', (40,60), CVThread.font, 0.5, (255,255,255), 1, cv2.LINE_AA)
         if not camera.isOpened():
              return None
 #            raise RuntimeError('Could not start camera.')
@@ -451,7 +449,8 @@ class Camera(BaseCamera):
         while True:
             # read current frame
             _, img = camera.read()
-
+#            distance = round(checkdist() *100)
+#            cv2.putText(img, 'Distace: {distance} cm'.format(distance=distance), (40,60), CVThread.font, 0.5, (255,255,255), 1, cv2.LINE_AA)
             if Camera.modeSelect == 'none':
                 switch.switch(1,0)
                 cvt.pause()
