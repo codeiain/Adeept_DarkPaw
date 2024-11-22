@@ -1,0 +1,32 @@
+1.使用 vuex 时，state 必须放在计算属性里。
+
+2. vuex 似乎在组件初始化之前执行。这意味着你不能用类似这样
+	...mapMutations([this.selectedColor])
+   的方式去切换想要选择的东西？
+
+3.通过 ref 来获取到组件的根节点（template下的第一个标签）似乎没什么用，因为无法对根节点进行操作，也无法获取到根节点的样式。 
+  // 可以使用 this.$el 获取到组件根节点 dom 结构
+  // 3/27 - ref 挂在 dom 元素上时，取得的就是一个 dom 对象。挂在 Vue 组件上时，取得的是一个 VueComponet 对象，这个组件对象的 $el 属性就是它的根元素的 dom 对象
+
+4.使用定时器时，利用箭头函数的指向为定义函数时的指向来让定时器指向 vue 组件。（普通函数中的this指向是变化的（使用函数时的指向），谁调用的指向谁。而 setInterval() 函数是 window 对象的函数）
+
+5.keyUp,keyDown 这些键盘事件似乎只能绑定在 document 对象或 input 这类可以 focus 的东西上面。
+
+6.vuex 的 mutation 无法直接接受第二个参数，需要用对象或数组来传多个参数
+
+7.如何实现快捷键操作
+	1、利用箭头函数使 this 指向组件本身，让组件内的函数得以被外部调用
+	2、使用 store 保存按键与函数的对应关系
+	3、使用一个专用组件，在 document 监听到按键操作时根据 store 里的对应关系执行正确的函数
+
+8.vue 的 watcher 可能自己触发自己。
+
+9.还是 watcher 。当它监听一个双向绑定的数据时并改变它自身时，可能会出现组件中的数据被改变但 dom 中的数据没有被更新的问题（也许是 Vuetify 的锅）。解决办法是使用 setTimeout 延迟 1ms 后再改变自身。
+
+10. vuetify 的栅格系统存在 bug，会导致 col 应该占据的列数出现错误。解决办法是重置每个 col 的 flex-basis 属性为 auto。
+	.col
+		flex-basis: auto
+		
+11. vuetify 的 this.$vuetify.breakpoint 对象的更新不是 0 延迟的，而是会在浏览器窗口改变后会延迟一段时间后才改变
+
+12.缓存问题可以通过在每次请求后加一个随机参数来解决（'?rand=' + Math.random）

@@ -1,0 +1,15 @@
+ellpsis() // 文字过长时使用 ... 代替结尾
+	overflow hidden
+	white-space nowrap
+	text-overflow ellipsis
+
+UnderColorIndicator() // 颜色取决于父节点边框颜色
+	content: ''
+	width: 100%
+	height: 100%
+	position: absolute
+	top: 0
+	left: 0
+	border-bottom 5px solid #bfbfbf
+	border-color inherit
+	-webkit-transform-origin: top left
